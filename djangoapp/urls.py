@@ -1,11 +1,12 @@
 from django.urls import include, path
 from . import views
 
+
 urlpatterns = [
     path('', views.getUsers),
-    path('create/', views.addUser),
-    path('read/<str:pk>/', views.getUser),
-    path('update/<str:pk>/', views.updateUser),
-    path('delete/<str:pk>/', views.deleteUser),
+    path('create', views.addUser),
+    path('read/<str:ss>', views.getUser),
+    path('update/<str:ss>', views.updateUser),
+    path('delete/<str:ss>', views.deleteUser),
 ]
 

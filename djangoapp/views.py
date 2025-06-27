@@ -1,7 +1,9 @@
+from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from .models import User
 from .serializers import UserSerializer
+
 
 @api_view(['GET'])
 def getUsers(request):
@@ -10,10 +12,11 @@ def getUsers(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
-def getUser(request, pk):
-    user = User.objects.get(id=pk)
+def getUser(request, ss):
+    user = User.objects.get(id=ss)
     serializer = UserSerializer(user, many=False)
     return Response(serializer.data)
+
 
 @api_view(['POST'])
 def addUser(request):
@@ -24,18 +27,20 @@ def addUser(request):
 
     return Response(serializer.data)
 
-api_view(['PUT'])
-def updateUser(request, pk):
-    user = User.objects.get(id=pk)
+@csrf_exempt
+@api_view(['PUT'])
+def updateUser(request, ss):
+    user = User.objects.get(id=ss)
     serializer = UserSerializer(user, data=request.data)
     if serializer.is_valid():
         serializer.save()
 
-    return Response(serializer.data)
+        return Response(serializer.data)
+    return Response(serializer.errors, status=400)
 
 @api_view(['DELETE'])
-def deleteUser(request, pk):
-    user = User.objects.get(id=pk)
+def deleteUser(request, ss):
+    user = User.objects.get(id=ss)
     user.delete()
 
     return Response('supprimer avec succès')
