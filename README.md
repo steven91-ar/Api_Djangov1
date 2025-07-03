@@ -10,7 +10,7 @@ Rôle du développeur : mettre en place le back-end, la base de données, l’en
 
 
 Stack technique
-Python 3.x
+Python 3
 
 Django 5
 
